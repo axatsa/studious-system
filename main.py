@@ -76,7 +76,9 @@ def get_comment(message, sector):
     bot.send_message(ADMIN_ID, full_message, reply_markup=get_admin_markup(request_id))
 
     # Уведомление пользователя
-    bot.send_message(message.chat.id, "Заявка отправлена администратору. Спасибо!")
+    bot.send_message(message.chat.id,
+                     "Заявка отправлена администратору. Спасибо!",
+                     reply_markup=get_main_keyboard())
 
 
 @bot.callback_query_handler(func=lambda call: call.data.startswith("resolve_"))
@@ -118,7 +120,6 @@ def show_history(message):
             bot.send_message(ADMIN_ID, "История заявок пуста.")
     else:
         bot.send_message(message.chat.id, "Эта команда доступна только администратору.")
-
 
 
 bot.polling()
