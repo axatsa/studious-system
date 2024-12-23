@@ -10,6 +10,18 @@ def get_sector_keyboard():
     return markup
 
 
+def get_reason_keyboard():
+    markup = ReplyKeyboardMarkup(resize_keyboard=True, row_width=4)
+    problems = ['Cлетел проектор', 'WiFi не работает', 'Не грузит презентация', 'Петличка села', 'Нужен крликер',
+                'Доска грязная', 'Нужен марер', 'Лист посещаемости нужно', "Не хватает мест в секторе", 'Нужен Админ',
+                'Перемена', 'Нужна зарядка для ноутбука', 'Нужен ноутбук', 'В секторе холодно', 'В секторе жарко',
+                'Звука нет в YouTube', 'Звука нет в StreamYard', 'Проектор мутный', 'Нужен переходник HDMI',
+                'Нужен переходник USB']
+    buttons = [KeyboardButton(problem) for problem in problems]
+    markup.add(*buttons)
+    return markup
+
+
 # Основная клавиатура для пользователя
 def get_main_keyboard():
     markup = ReplyKeyboardMarkup(resize_keyboard=True)

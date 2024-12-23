@@ -1,7 +1,7 @@
 import telebot
 from telebot.types import ReplyKeyboardRemove
 import sqlite3
-from keyboard import get_sector_keyboard, get_main_keyboard, get_admin_markup
+from keyboard import get_sector_keyboard, get_main_keyboard, get_admin_markup, get_reason_keyboard
 
 TOKEN = "7630583007:AAGvDmu3Be00Gcn0TI7_KAmbX8d3nMYInHQ"
 bot = telebot.TeleBot(TOKEN)
@@ -49,7 +49,7 @@ def get_sector(message):
     bot.send_message(
         message.chat.id,
         "Теперь добавьте комментарий:",
-        reply_markup=ReplyKeyboardRemove()
+        reply_markup=get_reason_keyboard()
     )
     bot.register_next_step_handler(message, get_comment, sector)
 
@@ -76,9 +76,11 @@ def get_comment(message, sector):
     bot.send_message(ADMIN_ID, full_message, reply_markup=get_admin_markup(request_id))
 
     # Уведомление пользователя
-    bot.send_message(message.chat.id,
-                     "Заявка отправлена администратору. Спасибо!",
-                     reply_markup=get_main_keyboard())
+    bot.send_message(
+        message.chat.id,
+        "Заявка отправлена администратору. Спасибо!",
+        reply_markup=get_main_keyboard()  # Оставляем клавиатуру с кнопкой "Оставить заявку"
+    )
 
 
 @bot.callback_query_handler(func=lambda call: call.data.startswith("resolve_"))
